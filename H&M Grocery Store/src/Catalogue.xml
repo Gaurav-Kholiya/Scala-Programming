@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalogue>
+    <items>
+        <item>
+            <id>101</id>
+            <name>LUX Bath Soap</name>
+            <size>
+                <uom>gm</uom><!--Unit of measure-->
+                <unitSize>10</unitSize>
+            </size>
+            <unitPrice>
+                <amount>35</amount>
+                <currency>INR</currency><!--Currency Alphacode-->
+            </unitPrice>
+            <quantity>
+                <stock>150</stock>
+                <measure>Units</measure>
+            </quantity>
+        </item>
+        <item>
+            <id>102</id>
+            <name>Tropicana Mixed Fruit Juice</name>
+            <size>
+                <uom>ml</uom>
+                <unitSize>1000</unitSize>
+            </size>
+            <unitPrice>
+                <amount>120</amount>
+                <currency>INR</currency>
+            </unitPrice>
+            <quantity>
+                <stock>200</stock>
+                <measure>Units</measure>
+            </quantity>
+        </item>
+        <item>
+            <id>103</id>
+            <name>Nivea Body Lotion</name>
+            <size>
+                <uom>ml</uom>
+                <unitSize>200</unitSize>
+            </size>
+            <unitPrice>
+                <amount>285</amount>
+                <currency>INR</currency>
+            </unitPrice>
+            <quantity>
+                <stock>100</stock>
+                <measure>Units</measure>
+            </quantity>
+        </item>
+        <item>
+            <id>104</id>
+            <name>Kissan Jam</name>
+            <size>
+                <uom>gm</uom>
+                <unitSize>150</unitSize>
+            </size>
+            <unitPrice>
+                <amount>100</amount>
+                <currency>INR</currency>
+            </unitPrice>
+            <quantity>
+                <stock>200</stock>
+                <measure>Units</measure>
+            </quantity>
+        </item>
+        <item>
+            <id>105</id>
+            <name>Basmati Rice</name>
+            <size>
+                <uom>kg</uom>
+                <unitSize>1</unitSize>
+            </size>
+            <unitPrice>
+                <amount>85</amount>
+                <currency>INR</currency>
+            </unitPrice>
+            <quantity>
+                <stock>200</stock>
+                <measure>Kg</measure>
+            </quantity>
+        </item>
+    </items>
+</catalogue>
