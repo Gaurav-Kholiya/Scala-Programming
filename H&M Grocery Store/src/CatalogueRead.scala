@@ -43,7 +43,44 @@ object CatalogueRead extends App{
   }
 
   val products=(cataData\\"item").map(toItem)
+  println("\t\t----------Welcome to H&M Grocery Store----------\n\n")
+  println("\t\t\t\t-----H&M Catalogue-----\n")
   products.foreach(println)
 
+  /*----------------------------------------------------------------------*/
+  case class cartitems(citems:List[(Int,String,String)])
 
-}
+  def addtoCart():cartitems={
+    println("\nHow many items you wants to buy?")
+    val n=scala.io.StdIn.readInt
+
+    val itemname =new Array[String](n)
+    val itemquant=new Array[Int](n)
+    val itemprice=new Array[String](n)
+
+    println("Please enter item names and quantity you want to add to the cart..")
+    for(i<-0 until n){
+      println("Enter item#"+(i+1))
+      itemname(i)=scala.io.StdIn.readLine.trim
+      for(j<-0 until 5){
+        if(itemname(i)==products(j).name){
+          itemname(i)=products(j).name+" "+products(j).us
+          itemprice(i)=products(j).up+" each"
+        }
+      }
+      println("Quantity item#"+(i+1))
+      itemquant(i)=scala.io.StdIn.readInt
+    }
+    val cartitem=(itemquant,itemname,itemprice).zipped.toList
+    cartitems(cartitem)
+  }
+  val citems=addtoCart
+  //print(citems)
+  def showCart(i:cartitems):Unit={
+    println("\t\t\t-----Items in Your Cart-----\n")
+   i.citems.foreach(println)
+   }
+  showCart(citems)
+  }
+
+
