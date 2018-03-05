@@ -43,7 +43,7 @@ object CatalogueRead extends App{
   }
 
   val products=(cataData\\"item").map(toItem)
-  println("\t\t----------Welcome to H&M Grocery Store----------\n\n")
+  println("\n\n\t\t----------Welcome to H&M Grocery Store----------\n\n")
   println("\t\t\t\t-----H&M Catalogue-----\n")
   products.foreach(println)
 
@@ -81,6 +81,51 @@ object CatalogueRead extends App{
    i.citems.foreach(println)
    }
   showCart(citems)
+
+  /*----------------------------------------------------------------*/
+
+  val priceArr=new Array[Int](citems.citems.length)
+  var totalPrice=0
+  def checkOut():Unit={
+    println("\nIf you want to checkout items press 'y'/'n':\n")
+    val input=scala.io.StdIn.readLine
+    if(input=="n")println("Thank you:)")
+    else if(input=="y"){
+      println("\n\tItems to checkout:\n")
+      for(i<-0 until citems.citems.length){
+        priceArr(i)=citems.citems(i)._3.substring(11,14).trim.toInt
+      }
+      for(i<-0 until citems.citems.length){
+        println(citems.citems(i)+"==>"+"INR "+(citems.citems(i)._1*priceArr(i)))
+        totalPrice=totalPrice+(citems.citems(i)._1*priceArr(i))
+      }
+      println("\nTotal Payable Amount= "+totalPrice+"\n\n")
+      //println("\n\n\t\t\t\tThank you for Shopping!! :)")
+    }
+    else println("Enter valid character\n")
   }
+  checkOut()
+/*-----------------------------------------------------------------*/
+  def orderSum:Unit={
+    println("If you want Order Summary press y/n:\n")
+    val input2=scala.io.StdIn.readLine
+    if(input2=="y"){
+      println("\t\t\t-----Order Summary-----\n")
+      println("\tItems Purchased: \n")
+      val tfinal=totalPrice
+      for(i<-0 until citems.citems.length){
+      println(citems.citems(i)+"==>"+"INR "+(citems.citems(i)._1*priceArr(i)))
+      }
+      println("\nTotal Payable Amount= "+totalPrice+"(PAID)")
+      println("\n\n\t\t\t\tThank you for Shopping!! :)")
+    }else if(input2=="n"){
+      println("Thank you for Shopping :)")
+    }else{
+      println("enter a valid character")
+    }
+  }
+  orderSum
+
+}
 
 
