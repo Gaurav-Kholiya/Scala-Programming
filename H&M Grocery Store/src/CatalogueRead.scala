@@ -1,58 +1,17 @@
 
 import CatalogueRead.{checkOut,inputcat}
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
-import scala.xml._
+import scala.collection.mutable.{ListBuffer}
 class CatalogueRead{
-  val cataData=XML.loadFile("C:/Users/hashmap/IdeaProjects/H&M Grocery Store/src/Catalogue.xml")
-
-  case class usize(val unitsize:Int,val uom:String)
-  case class uprice(val amt:Int,val cur:String)
-  case class quantity(val stock:Int,val measure:String)
-
-  def toSize(node:Node):usize={
-    val unitsize=(node\"unitSize").text.toInt
-    val uom=(node\"uom").text
-    usize(unitsize,uom)
-  }
-  def toPrice(node:Node):uprice={
-    val amount=(node\"amount").text.toInt
-    val currency=(node\"currency").text
-    uprice(amount,currency)
-  }
-  def toQuant(node:Node):quantity={
-    val stock=(node\"stock").text.toInt
-    val measure=(node\"measure").text
-    quantity(stock,measure)
-  }
-  def toItem(node:Node):(Int,String,String,String,String)={
-    val id=(node\"id").text.toInt
-    val name=(node\"name").text
-    val unitsize=(node\"size").map(toSize).toList match {
-      case List(usize(a,b))=>a+" "+b
-      case _=>"Size not mentioned"
-    }
-    val price=(node\"unitPrice").map(toPrice).toList match{
-      case List(uprice(a,b))=>"Price: "+b+" "+a
-      case _=>"Price not mentioned"
-    }
-    val quant=(node\"quantity").map(toQuant).toList match {
-      case List(quantity(a,b))=>"Stock:"+a+" "+b
-      case _=>"Stock not mentioned"
-    }
-    (id,name,unitsize,price,quant)
-  }
-  def toCatagory(node:Node):(Int,String)={
-      val catname=(node\"@catname").text
-      val catid=(node\"@id").text.toInt
-    (catid,catname)
-  }
-  val product=(cataData\\"item").map(toItem).toList
-  val catagoryName=(cataData\\"catagory").map(toCatagory).toList
+  val obj2=new XMLRead()
+  val product=(obj2.cataData\\"item").map(obj2.toItem).toList
+  val catagoryName=(obj2.cataData\\"catagory").map(obj2.toCatagory).toList
 
   /*-----------------------------------------------------------------------*/
   var itemPID=new ListBuffer[Int]()
   var itemPRICE=new ListBuffer[Double]()
+  var itemNAME=new ListBuffer[String]()
+  var itemSTOCK= new ListBuffer[Int]()
   var itempid=new ListBuffer[Int]()
   var itemname=new ListBuffer[String]()
   var itemquant=new ListBuffer[Int]()
@@ -62,6 +21,8 @@ class CatalogueRead{
   for(i<-0 until  product.length){
     itemPID += product(i)._1
     itemPRICE  += product(i)._4.substring(11).toDouble
+    itemNAME += product(i)._2 +"_"+product(i)._3
+    itemSTOCK += product(i)._5.substring(6,9).toInt
   }
   /*-----------------------------------------------------------------------*/
   def addtoCart():List[(Int,String,String)]={
@@ -230,13 +191,21 @@ class CatalogueRead{
   /*-------------------------------------------------------------------*/
 
   def adminArea:Unit={
-    println("\nAdmin Options:"+"\n1: Add Discount to category\n2: Remove Discount from category\n3: Logout\n")
+    println("\nAdmin Options:"+"\n1: Add Discount to category\n2: Remove Discount from category\n3: View Stock\n4: Logout\n")
     val inputa=scala.io.StdIn.readInt
     if(inputa==1){
       discount
     }else if(inputa==2){
       removeDiscount
-    }else if(inputa==3){CatalogueRead.welcome}
+    }
+    else if(inputa==3){
+      println("Items Stock")
+      for(i<-0 until itemSTOCK.length){
+        println(+itemPID(i)+" "+itemNAME(i)+"==>"+itemSTOCK(i)+" "+product(i)._5.substring(10))
+      }
+      adminArea
+    }
+    else if(inputa==4){CatalogueRead.welcome}
     else {
       println("Invalid input")
       adminArea
@@ -277,9 +246,10 @@ object CatalogueRead extends App {
       println("\t\t\t\t-----H&M Catalogue-----\n")
       println("Select Category:\n\n1: "+catagories(0)._2+"\n2: "+catagories(1)._2+"\n3: "+catagories(2)._2+"\n4: "+catagories(3)._2+"\n5: "+catagories(4)._2)
       inputcat=scala.io.StdIn.readInt
+      println("Items List")
       for(i<-0 until products.length){
         if(inputcat==(products(i)._1)/100000){
-          println(products(i))
+          println("PID: "+products(i)._1+"--"+products(i)._2+"_"+products(i)._3+"--"+products(i)._4+"--"+"Stock:"+obj1.itemSTOCK(i)+" "+products(i)._5.substring(10))
         }
       }
       obj1.showCart(obj1.addtoCart)
@@ -306,6 +276,12 @@ object CatalogueRead extends App {
         totalPrice=totalPrice+(citemss(i)._1*priceA(i))
       }
       println("\nTotal Payable Amount= "+totalPrice+"\n\n")
+      for(i<-0 until citemss.length){
+        for(j<-0 until obj1.itemNAME.length)
+        if((citemss(i)._2)==obj1.itemNAME(j)){
+          obj1.itemSTOCK(j)=obj1.itemSTOCK(j)-citemss(i)._1
+        }
+      }
       orderSum
       //println("\n\n\t\t\t\tThank you for Shopping!! :)")
     }

@@ -50,7 +50,7 @@
                     <currency>INR</currency>
                 </unitPrice>
                 <quantity>
-                    <stock>50</stock>
+                    <stock>100</stock>
                     <measure>Kg</measure>
                 </quantity>
             </item>
