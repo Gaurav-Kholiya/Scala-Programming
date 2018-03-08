@@ -1,5 +1,5 @@
 
-import CatalogueRead.{checkOut, product}
+import CatalogueRead.{checkOut,inputcat}
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.xml._
@@ -42,7 +42,13 @@ class CatalogueRead{
     }
     (id,name,unitsize,price,quant)
   }
+  def toCatagory(node:Node):(Int,String)={
+      val catname=(node\"@catname").text
+      val catid=(node\"@id").text.toInt
+    (catid,catname)
+  }
   val product=(cataData\\"item").map(toItem).toList
+  val catagoryName=(cataData\\"catagory").map(toCatagory).toList
 
   /*-----------------------------------------------------------------------*/
   var itemPID=new ListBuffer[Int]()
@@ -69,10 +75,10 @@ class CatalogueRead{
     println("Please enter item PID and quantity you want to add to the cart..")
 
     for(i<-0 until n){
-      println("Enter PID starting from 100_ of item#"+(i+1))
+      println("Enter PID of item#"+(i+1))
       itempid+=scala.io.StdIn.readInt
-      for(j<-0 until 5) {
-        if (itempid(i) == product(j)._1){
+      for(j<-0 until product.length) {
+        if (inputcat==product(j)._1/100000 && itempid(i) == product(j)._1){
           itemname += product(j)._2+"_"+product(j)._3
           itemprice += itemPRICE(j)+"_INR each"
         }
@@ -123,6 +129,7 @@ class CatalogueRead{
         }
       }
     }
+    println("Quantity updated")
     update()
   }
 
@@ -131,10 +138,11 @@ class CatalogueRead{
   def removeItem:Unit={
     println("How many items you want to remove:")
     val in=scala.io.StdIn.readInt
-    var citemss=merge
+    //var citemss=merge
     for(i<-0 until in){
       println("Enter item name:")
       val input6=scala.io.StdIn.readLine
+      var citemss=merge
       for(j<-0 until citemss.length){
         val str=citemss(j)._2.split("_")
         if(input6.equalsIgnoreCase(str(0))){
@@ -144,8 +152,9 @@ class CatalogueRead{
           itempid.remove(j)
         }
       }
+      println("item removed from cart")
     }
-    println("item removed from cart")
+    //println("item removed from cart")
     if(merge.isEmpty){
       println("add items to cart")
       addtoCart()
@@ -171,24 +180,24 @@ class CatalogueRead{
   /*-------------------------------------------------------------------*/
 
   def discount:Unit={
-    println("1:Buy 1 get 1 free\n2:flat 30% off")
+    println("1:flat 50% off\n2:flat 30% off")
     val inputd=scala.io.StdIn.readInt()
 
     if(inputd==1){
-      println("Enter PID of product:")
-      val inputPID=scala.io.StdIn.readInt
+      println("Enter ID of category:")
+      val inputCID=scala.io.StdIn.readInt
       for(i<-0 until itemPID.length){
-        if(inputPID==itemPID(i)){
+        if(inputCID==itemPID(i)/100000){
           itemPRICE(i)=itemPRICE(i)-((itemPRICE(i)*50)/100)
         }
       }
       println("Discount Added")
       adminArea
     }else if(inputd==2){
-      println("Enter PID of product:")
-      val inputPID=scala.io.StdIn.readInt
+      println("Enter ID of category:")
+      val inputCID=scala.io.StdIn.readInt
       for(i<-0 until itemPID.length){
-        if(inputPID==itemPID(i)){
+        if(inputCID==itemPID(i)/100000){
           itemPRICE(i)=itemPRICE(i)-((itemPRICE(i)*30)/100)
         }
       }
@@ -202,28 +211,26 @@ class CatalogueRead{
   /*-------------------------------------------------------------------*/
   def removeDiscount:Unit={
 
-      println("Enter PID of product:")
-      val inputPID=scala.io.StdIn.readInt
+      println("Enter ID of category:")
+      val inputCID=scala.io.StdIn.readInt
       for(i<-0 until itemPID.length){
-        if((inputPID==itemPID(i))&&(itemPRICE(i)==product(i)._4.substring(11).toDouble))
+        if((inputCID==itemPID(i)/100000)&&(itemPRICE(i)==product(i)._4.substring(11).toDouble))
         {
           println("No Discount added to this item")
           adminArea
         }
-        if((inputPID==itemPID(i))&&(itemPRICE(i)!=product(i)._4.substring(11).toDouble)){
+        if((inputCID==itemPID(i)/100000)&&(itemPRICE(i)!=product(i)._4.substring(11).toDouble)){
             itemPRICE(i)=product(i)._4.substring(11).toDouble
             println("Discount removed")
-            adminArea
           }
         }
-          println("Enter Correct PID")
-          removeDiscount
+        adminArea
         }
 
   /*-------------------------------------------------------------------*/
 
   def adminArea:Unit={
-    println("\n1: Add Discount\n2: Remove Discount\n3: Logout\n")
+    println("\nAdmin Options:"+"\n1: Add Discount to category\n2: Remove Discount from category\n3: Logout\n")
     val inputa=scala.io.StdIn.readInt
     if(inputa==1){
       discount
@@ -240,8 +247,13 @@ object CatalogueRead extends App {
 
   var priceA=new ListBuffer[Double]()
   val obj1=new CatalogueRead
-  val product=obj1.product
+  val products=obj1.product
+  val catagories=obj1.catagoryName
+  var inputcat=0
   println("\n\n\t\t----------Welcome to H&M Grocery Store----------\n\n")
+
+  //catagories.foreach(println)
+  //product.foreach(println)
   welcome
 
 
@@ -254,7 +266,7 @@ object CatalogueRead extends App {
       var inputp=scala.io.StdIn.readLine
       if(inputp=="admin"){
         println("\t\t\t\t-----H&M Catalogue-----\n")
-        product.foreach(println)
+        println("Categories:\n\n1: "+catagories(0)._2+"\n2: "+catagories(1)._2+"\n3: "+catagories(2)._2+"\n4: "+catagories(3)._2+"\n5: "+catagories(4)._2)
         obj1.adminArea
       }else{
         println("Wrong password")
@@ -263,7 +275,13 @@ object CatalogueRead extends App {
     }
     else{
       println("\t\t\t\t-----H&M Catalogue-----\n")
-      product.foreach(println)
+      println("Select Category:\n\n1: "+catagories(0)._2+"\n2: "+catagories(1)._2+"\n3: "+catagories(2)._2+"\n4: "+catagories(3)._2+"\n5: "+catagories(4)._2)
+      inputcat=scala.io.StdIn.readInt
+      for(i<-0 until products.length){
+        if(inputcat==(products(i)._1)/100000){
+          println(products(i))
+        }
+      }
       obj1.showCart(obj1.addtoCart)
       obj1.update
     }

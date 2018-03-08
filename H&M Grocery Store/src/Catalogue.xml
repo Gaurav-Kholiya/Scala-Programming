@@ -1,85 +1,183 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalogue>
-    <items>
-        <item>
-            <id>101</id>
-            <name>LUX Bath Soap</name>
-            <size>
-                <uom>gm</uom><!--Unit of measure-->
-                <unitSize>10</unitSize>
-            </size>
-            <unitPrice>
-                <amount>35</amount>
-                <currency>INR</currency><!--Currency Alphacode-->
-            </unitPrice>
-            <quantity>
-                <stock>150</stock>
-                <measure>Units</measure>
-            </quantity>
-        </item>
-        <item>
-            <id>102</id>
-            <name>Tropicana Mixed Fruit Juice</name>
-            <size>
-                <uom>ml</uom>
-                <unitSize>1000</unitSize>
-            </size>
-            <unitPrice>
-                <amount>120</amount>
-                <currency>INR</currency>
-            </unitPrice>
-            <quantity>
-                <stock>200</stock>
-                <measure>Units</measure>
-            </quantity>
-        </item>
-        <item>
-            <id>103</id>
-            <name>Nivea Body Lotion</name>
-            <size>
-                <uom>ml</uom>
-                <unitSize>200</unitSize>
-            </size>
-            <unitPrice>
-                <amount>285</amount>
-                <currency>INR</currency>
-            </unitPrice>
-            <quantity>
-                <stock>100</stock>
-                <measure>Units</measure>
-            </quantity>
-        </item>
-        <item>
-            <id>104</id>
-            <name>Kissan Jam</name>
-            <size>
-                <uom>gm</uom>
-                <unitSize>150</unitSize>
-            </size>
-            <unitPrice>
-                <amount>100</amount>
-                <currency>INR</currency>
-            </unitPrice>
-            <quantity>
-                <stock>200</stock>
-                <measure>Units</measure>
-            </quantity>
-        </item>
-        <item>
-            <id>105</id>
-            <name>Basmati Rice</name>
-            <size>
-                <uom>kg</uom>
-                <unitSize>1</unitSize>
-            </size>
-            <unitPrice>
-                <amount>85</amount>
-                <currency>INR</currency>
-            </unitPrice>
-            <quantity>
-                <stock>200</stock>
-                <measure>Kg</measure>
-            </quantity>
-        </item>
-    </items>
+    <catagory id="1" catname="Beauty and Hygiene">
+        <items>
+            <item>
+                <id>100101</id>
+                <name>Ponds Facewash</name>
+                <size>
+                    <uom>gm</uom><!--Unit of measure-->
+                    <unitSize>100</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>95</amount>
+                    <currency>INR</currency><!--Currency Alphacode-->
+                </unitPrice>
+                <quantity>
+                    <stock>150</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+            <item>
+                <id>100102</id>
+                <name>Nivea Body Lotion</name>
+                <size>
+                    <uom>ml</uom><!--Unit of measure-->
+                    <unitSize>250</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>285</amount>
+                    <currency>INR</currency><!--Currency Alphacode-->
+                </unitPrice>
+                <quantity>
+                    <stock>150</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+        </items>
+    </catagory>
+    <catagory id="2" catname="Fruits and Vegetables">
+        <items>
+            <item>
+                <id>200101</id>
+                <name>Apple</name>
+                <size>
+                    <uom>kg</uom>
+                    <unitSize>1</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>250</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>50</stock>
+                    <measure>Kg</measure>
+                </quantity>
+            </item>
+            <item>
+                <id>200102</id>
+                <name>Patato</name>
+                <size>
+                    <uom>kg</uom>
+                    <unitSize>1</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>20</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>100</stock>
+                    <measure>Kg</measure>
+                </quantity>
+            </item>
+        </items>
+    </catagory>
+    <catagory id="3" catname="Foodgrains">
+        <items>
+            <item>
+                <id>300101</id>
+                <name>Basmati Rice</name>
+                <size>
+                    <uom>kg</uom>
+                    <unitSize>1</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>80</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>100</stock>
+                    <measure>Kg</measure>
+                </quantity>
+            </item>
+            <item>
+                <id>300102</id>
+                <name>Rajma</name>
+                <size>
+                    <uom>kg</uom>
+                    <unitSize>1</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>100</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>100</stock>
+                    <measure>Kg</measure>
+                </quantity>
+            </item>
+        </items>
+    </catagory>
+    <catagory id="4" catname="Oil and Masala">
+        <items>
+            <item>
+                <id>400101</id>
+                <name>Mustard Oil</name>
+                <size>
+                    <uom>ml</uom>
+                    <unitSize>1000</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>120</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>100</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+            <item>
+                <id>400102</id>
+                <name>Tata Salt</name>
+                <size>
+                    <uom>kg</uom>
+                    <unitSize>1</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>20</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>100</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+        </items>
+    </catagory>
+    <catagory id="5" catname="Beverages">
+        <items>
+            <item>
+                <id>500101</id>
+                <name>Tropicana Mixed Fruit</name>
+                <size>
+                    <uom>ml</uom>
+                    <unitSize>1000</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>120</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>200</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+            <item>
+                <id>500102</id>
+                <name>Coca Cola</name>
+                <size>
+                    <uom>litre</uom>
+                    <unitSize>2</unitSize>
+                </size>
+                <unitPrice>
+                    <amount>80</amount>
+                    <currency>INR</currency>
+                </unitPrice>
+                <quantity>
+                    <stock>200</stock>
+                    <measure>Units</measure>
+                </quantity>
+            </item>
+        </items>
+    </catagory>
 </catalogue>
