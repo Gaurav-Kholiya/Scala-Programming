@@ -1,0 +1,14 @@
+Usage of _ in Scala:
+_ is used for different meaning in scala.Some of them are follows:
+  1. import scala._    			:// Wild card -- all of Scala is imported
+  2. case _ =>         			:// Wild card pattern -- matches anything  
+  3.f(xs: _*)         			:// Sequence xs is passed as multiple parameters to f(ys: T*)
+  4.m(_)              			:// Partial function application
+  5._ + _             			:// Anonymous function placeholder parameter
+  6.m _               			:// Expansion of method into method value
+  7.import scala.{ Predef => _, _ }	:// Exclusion, everything except Predef
+  8.case Seq(xs @ _*) 		:// Identifier xs is bound to the whole matched sequence
+  9.def f[M[_]]       			:// Higher kinded type parameter
+ 10._ => 5            			:// Discarded parameter
+
+
